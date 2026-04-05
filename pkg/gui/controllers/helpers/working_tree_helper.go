@@ -222,6 +222,10 @@ func (self *WorkingTreeHelper) HandleCommitPress() error {
 	return self.HandleCommitPressWithMessage(message, false)
 }
 
+func (self *WorkingTreeHelper) HandleGenerateCommitMessagePress() error {
+	return self.commitsHelper.OpenGenerateCommitMessagePanel(self.HandleCommitPress)
+}
+
 func (self *WorkingTreeHelper) WithEnsureCommittableFiles(handler func() error) error {
 	if err := self.prepareFilesForCommit(); err != nil {
 		return err

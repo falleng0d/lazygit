@@ -366,7 +366,7 @@ type CommitConfig struct {
 	AutoWrapWidth int `yaml:"autoWrapWidth"`
 	// Shell command that generates a commit message from a diff piped to stdin.
 	// The command's stdout is used as the commit message (markdown fences are stripped automatically).
-	// Accessible via the commit menu (<c-o> then 'g').
+	// Accessible via the commit menu (<c-o> then 'g') or the global generate shortcut.
 	// Example: "claude -p 'Generate a conventional commit message for this diff:'"
 	GenerateCommand string `yaml:"generateCommand"`
 }
@@ -431,6 +431,7 @@ type KeybindingUniversalConfig struct {
 	QuitAlt1                          string   `yaml:"quit-alt1"`
 	SuspendApp                        string   `yaml:"suspendApp"`
 	Return                            string   `yaml:"return"`
+	GenerateCommitMessage             string   `yaml:"generateCommitMessage"`
 	QuitWithoutChangingDirectory      string   `yaml:"quitWithoutChangingDirectory"`
 	TogglePanel                       string   `yaml:"togglePanel"`
 	PrevItem                          string   `yaml:"prevItem"`
@@ -901,6 +902,7 @@ func GetDefaultConfig() *UserConfig {
 				QuitAlt1:                          "<c-c>",
 				SuspendApp:                        "<c-z>",
 				Return:                            "<esc>",
+				GenerateCommitMessage:             "x",
 				QuitWithoutChangingDirectory:      "Q",
 				TogglePanel:                       "<tab>",
 				PrevItem:                          "<up>",

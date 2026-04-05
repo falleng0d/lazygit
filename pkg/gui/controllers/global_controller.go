@@ -77,6 +77,14 @@ func (self *GlobalController) GetKeybindings(opts types.KeybindingsOpts) []*type
 			DisplayOnScreen:   true,
 		},
 		{
+			Key:               opts.GetKey(opts.Config.Universal.GenerateCommitMessage),
+			Handler:           opts.Guards.NoPopupPanel(self.c.Helpers().WorkingTree.HandleGenerateCommitMessagePress),
+			Description:       self.c.Tr.GenerateCommitMessage,
+			ShortDescription:  "AI",
+			DisplayOnScreen:   true,
+			GetDisabledReason: self.c.Helpers().Commits.GenerateCommitMessageDisabledReason,
+		},
+		{
 			ViewName:  "",
 			Key:       opts.GetKey(opts.Config.Universal.OptionMenu),
 			Handler:   self.createOptionsMenu,
