@@ -207,12 +207,7 @@ func (self *CommitsHelper) OpenCommitMenu(suggestionFunc func(string) []*types.S
 		}
 	}
 
-	var disabledReasonForGenerate *types.DisabledReason
-	if self.c.UserConfig().Git.Commit.GenerateCommand == "" {
-		disabledReasonForGenerate = &types.DisabledReason{
-			Text: self.c.Tr.NoGenerateCommandConfigured,
-		}
-	}
+	disabledReasonForGenerate := self.GenerateCommitMessageDisabledReason()
 
 	menuItems := []*types.MenuItem{
 		{
@@ -250,6 +245,16 @@ func (self *CommitsHelper) OpenCommitMenu(suggestionFunc func(string) []*types.S
 		Title: self.c.Tr.CommitMenuTitle,
 		Items: menuItems,
 	})
+}
+
+func (self *CommitsHelper) GenerateCommitMessageDisabledReason() *types.DisabledReason {
+	if self.c.UserConfig().Git.Commit.GenerateCommand == "" {
+		return &types.DisabledReason{
+			Text: self.c.Tr.NoGenerateCommandConfigured,
+		}
+	}
+
+	return nil
 }
 
 func (self *CommitsHelper) addCoAuthor(suggestionFunc func(string) []*types.Suggestion) error {
@@ -336,6 +341,18 @@ func (self *CommitsHelper) generateCommitMessage() error {
 		})
 		return nil
 	})
+}
+
+func (self *CommitsHelper) OpenGenerateCommitMessagePanel(openPanel func() error) error {
+	if disabledReason := self.GenerateCommitMessageDisabledReason(); disabledReason != nil {
+		return errors.New(disabledReason.Text)
+	}
+
+	if err := openPanel(); err != nil {
+		return err
+	}
+
+	return self.generateCommitMessage()
 }
 
 // parseGenerateOutput strips markdown code fences and any preamble before them.

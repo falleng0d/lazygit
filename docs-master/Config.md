@@ -379,7 +379,8 @@ git:
     # Shell command that generates a commit message from a diff piped to stdin.
     # The command's stdout is used as the commit message (markdown fences are
     # stripped automatically).
-    # Accessible via the commit menu (<c-o> then 'g').
+    # Accessible via the commit menu (<c-o> then 'g') or the global generate
+    # shortcut.
     # Example: "claude -p 'Generate a conventional commit message for this diff:'"
     generateCommand: ""
 
@@ -604,6 +605,7 @@ keybinding:
     quit-alt1: <c-c>
     suspendApp: <c-z>
     return: <esc>
+    generateCommitMessage: x
     quitWithoutChangingDirectory: Q
     togglePanel: <tab>
     prevItem: <up>

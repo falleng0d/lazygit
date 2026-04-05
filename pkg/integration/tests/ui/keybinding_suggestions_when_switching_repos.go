@@ -31,12 +31,12 @@ var KeybindingSuggestionsWhenSwitchingRepos = NewIntegrationTest(NewIntegrationT
 
 		t.Views().Files().Focus()
 		t.Views().Options().Content(
-			Equals("Commit: c | Stash: s | Reset: D | Keybindings: ?"))
+			Equals("Commit: c | Stash: s | Reset: D | AI: x | Keybindings: ?"))
 
 		switchToRepo("other")
 		switchToRepo("repo")
 
 		t.Views().Options().Content(
-			Equals("Commit: c | Stash: s | Reset: D | Keybindings: ?"))
+			Equals("Commit: c | Stash: s | Reset: D | AI: x | Keybindings: ?"))
 	},
 })
